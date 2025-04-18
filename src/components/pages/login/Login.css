@@ -1,0 +1,98 @@
+.container_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #65D067, #253916);
+    height: 100vh;
+    width: 100%;      
+
+}
+
+
+.logo_controla{
+    width: 300px;
+    margin-top: -100px;
+    margin-bottom: -50px;
+}
+
+.form_login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #EEF7FA;
+    border-radius: 20px;
+    width: 420px;
+    height: 550px;
+    color: #000000;
+
+}
+
+.form_login>h2{
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #000000;
+    font-weight: 500;
+}
+
+.input_container{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    color: #000000;
+    margin: 5px;
+}
+
+.input_container>label{
+    align-self: flex-start;
+    margin: 5px;
+}
+.input_container>input{
+    width: 95%;
+    height: 45px;
+    border: none;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding-inline: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px;
+    color: #000000;
+
+}
+
+input:focus{
+    outline: none;
+
+}
+
+
+.link_password{
+    display: flex;
+    align-self: flex-start;
+    color: black;
+    margin: 8px;
+
+}
+
+.link_to_register{
+    display: flex;
+    color: black;
+    margin-top: 8px;
+}
+
+.button_login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 30%;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 15px;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
