@@ -16,7 +16,7 @@ export function Login() {
                     <a href="" className="link_password">Esqueci a senha.</a>
                 </div>
                 <button className="button_login" >Entrar</button>
-                <a href="" className="link_to_register">Não tenho uma conta.</a>
+                <a href="/sign-up" className="link_to_register">Não tenho uma conta.</a>
             </form>
         </div>
     )
