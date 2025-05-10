@@ -1,3 +1,5 @@
+
+
 .container-landing{
 
     display: flex;
@@ -9,6 +11,9 @@
     
 }
 
+section{
+    background-color: white;
+}
 
 .container-buttons{
     display: grid;
@@ -99,6 +104,7 @@ button:hover{
     margin-bottom: 100px;
     margin-left: 30px;
     justify-content: center;
+    background-color: white;
     
 }
 
