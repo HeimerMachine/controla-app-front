@@ -1,0 +1,44 @@
+.container-header{
+
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100px;
+    border-bottom: 2px solid black;
+    z-index: 50;
+    background-color: white;
+    
+}
+
+.container-elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+
+    width: 190px;
+    height: 100px;
+    margin-right: auto;
+
+}
+.links-header{
+    display: flex;
+    align-self: center;
+    gap: 50px;
+    margin-left: auto;
+    padding: 50px;
+    
+}
+
+.profile-icon{
+    width: 30px;
+    height: 30px;
+    stroke-width: 1.5;
+}
+
+.links-header>a{
+    text-decoration: none;
+    color: black;
+}
