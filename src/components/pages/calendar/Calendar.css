@@ -1,0 +1,236 @@
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.month-selector {
+  margin-top: 20px;
+}
+
+.calendar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.calendar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.arrow-left, .arrow-right {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.arrow-left:hover, .arrow-right:hover {
+  background-color: #e0e0e0;
+}
+
+.arrow-left {
+  position: absolute;
+  left: -60px;
+}
+
+.arrow-right {
+  position: absolute;
+  right: -60px;
+}
+
+.calendar-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+}
+
+.calendar-table th, .calendar-table td {
+  width: 120px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  font-size: 1.2rem;
+}
+
+.calendar-table td:hover {
+  background-color: #fafafa;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: #FFFAC2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+
+
+.modal h2 {
+  text-align: left;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.modal .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.modal .input-group label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.modal .input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.modal .input-group input:focus {
+  border-color: #000000;
+  outline: none;
+}
+
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.radio-group input[type="radio"] {
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+.radio-group-categories {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.radio-group-categories label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;  
+}
+
+.radio-group-categories input[type="radio"] {
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+
+.modal .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.add-btn {
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-btn:hover {
+  background-color: #dedede;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}
+
+.adicionar {
+  display: flex;  
+  justify-content: center; 
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.radio-group-categories input[value="Alimentação"] {
+  accent-color: #FF0004; 
+}
+
+.radio-group-categories input[value="Lazer"] {
+  accent-color: #65D067; 
+}
+
+.radio-group-categories input[value="Saúde"] {
+  accent-color: #009DFF;
+}
+
+.radio-group-categories input[value="Roupas e acessórios"] {
+  accent-color: #FF18AE; 
+}
+
+.radio-group-categories input[value="Dívidas"] {
+  accent-color: #FFA600;
+}
+
+.radio-group-categories input[value="Contas"] {
+  accent-color: #D900FF;
+}
+
+.radio-group-categories input[value="Outros tipos de gastos"] {
+  accent-color: #795548; 
+
+}
