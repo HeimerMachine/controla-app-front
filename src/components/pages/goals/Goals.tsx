@@ -3,21 +3,21 @@ import './Goals.css';
 import logoControla from '../../../assets/logo-controla.svg';
 
 function Goals() {
-  const [rendaMensal, setRendaMensal] = useState<string>('');
-  const [despesasMensais, setDespesasMensais] = useState<string>('');
-  const [metaFinanceira, setMetaFinanceira] = useState<string>('');
-  const [prazoMeta, setPrazoMeta] = useState<string>('');
-  const [resultado, setResultado] = useState<string | null>(null);
+  const [monthlyIncome, setMonthlyIncome] = useState<string>('');
+  const [monthlyExpenses, setMonthlyExpenses] = useState<string>('');
+  const [financialGoal, setFinancialGoal] = useState<string>('');
+  const [goalDeadline, setGoalDeadline] = useState<string>('');
+  const [result, setResult] = useState<string | null>(null);
 
-  const formatarValor = (valor: string): string => {
+  const formatValue = (value: string): string => {
     // Remove caracteres não numéricos
-    const apenasNumeros = valor.replace(/\D/g, '');
+    const onlyNumbers = value.replace(/\D/g, '');
 
     // Converte para número e formata como moeda
-    if (apenasNumeros === '') return '';
+    if (onlyNumbers === '') return '';
 
-    const numero = parseInt(apenasNumeros, 10) / 100;
-    return numero.toLocaleString('pt-BR', {
+    const number = parseInt(onlyNumbers, 10) / 100;
+    return number.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
     });
@@ -32,7 +32,7 @@ function Goals() {
 
     if (isMonetary) {
       // Para campos monetários, formata como moeda
-      setter(formatarValor(value));
+      setter(formatValue(value));
     } else {
       // Para campos não monetários (como prazo), permite apenas números
       if (/^\d*$/.test(value) || value === '') {
@@ -41,93 +41,142 @@ function Goals() {
     }
   };
 
-  const calcularMeta = () => {
-    // Converte valores monetários para números
-    const renda = parseFloat(rendaMensal.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-    const despesas = parseFloat(despesasMensais.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-    const meta = parseFloat(metaFinanceira.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-    const prazo = parseInt(prazoMeta, 10) || 1;
+  const parseMonetary = (value: string): number => {
+    // Se o valor estiver vazio, retorna 0
+    if (!value || value.trim() === '') return 0;
+    
+    // Remove o símbolo da moeda e espaços
+    let cleanValue = value.replace(/R\$\s?/g, '');
+    
+    // Substitui pontos por nada (remove separadores de milhar)
+    cleanValue = cleanValue.replace(/\./g, '');
+    
+    // Substitui vírgula por ponto (para decimal)
+    cleanValue = cleanValue.replace(',', '.');
+    
+    // Converte para número
+    const result = parseFloat(cleanValue);
+    
+    // Retorna 0 se não for um número válido
+    return isNaN(result) ? 0 : result;
+  };
 
-    // Calcula a economia mensal disponível
-    const economiaMensal = renda - despesas;
+  const calculateGoal = () => {
+    const income = parseMonetary(monthlyIncome);
+    const expenses = parseMonetary(monthlyExpenses);
+    const goal = parseMonetary(financialGoal);
+    const deadline = parseInt(goalDeadline, 10);
 
-    if (economiaMensal <= 0) {
-      setResultado('Suas despesas são maiores ou iguais à sua renda. Revise seu orçamento para poder economizar.');
+    // Validação do prazo
+    if (isNaN(deadline) || deadline < 1) {
+      setResult('O prazo da meta deve ser de no mínimo 1 mês.');
       return;
     }
 
-    // Calcula quanto tempo levará para atingir a meta com a economia atual
-    const tempoNecessario = meta / economiaMensal;
+    const monthlySavings = income - expenses;
 
-    // Calcula quanto precisa economizar por mês para atingir a meta no prazo
-    const economiaNecess = meta / prazo;
+    if (monthlySavings <= 0) {
+      setResult('Suas despesas são maiores ou iguais à sua renda. Revise seu orçamento para conseguir economizar.');
+      return;
+    }
 
-    if (economiaNecess > economiaMensal) {
-      const tempoReal = Math.ceil(tempoNecessario);
-      setResultado(`Com sua economia mensal atual de ${formatarValor(String(economiaMensal * 100))}, você atingirá sua meta em aproximadamente ${tempoReal} meses, o que é mais do que o prazo desejado de ${prazo} meses.`);
+    const timeNeeded = goal / monthlySavings;
+    const requiredSavings = goal / deadline;
+
+    // Formata os valores para exibição
+    const formattedMonthlySavings = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(monthlySavings);
+    
+    const formattedRequiredSavings = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(requiredSavings);
+    
+    const formattedGoal = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(goal);
+
+    if (requiredSavings > monthlySavings) {
+      const realTime = Math.ceil(timeNeeded);
+      setResult(`Com sua economia mensal atual de ${formattedMonthlySavings}, você alcançará sua meta em aproximadamente ${realTime} meses, o que é mais do que o prazo desejado de ${deadline} meses.`);
     } else {
-      setResultado(`Para atingir sua meta de ${metaFinanceira} em ${prazo} meses, você precisa economizar pelo menos ${formatarValor(String(economiaNecess * 100))} por mês. Com sua economia atual de ${formatarValor(String(economiaMensal * 100))}, você está no caminho certo!`);
+      setResult(`Para atingir sua meta de ${formattedGoal} em ${deadline} meses, você precisa economizar pelo menos ${formattedRequiredSavings} por mês. Com sua economia atual de ${formattedMonthlySavings}, você está no caminho certo!`);
     }
   };
 
   return (
-    <div className="calculador-container">
+    <div className="calculator-container">
       <header className="header">
         <img src={logoControla} alt="Controla" className="logo" />
       </header>
 
-      <div className="calculador-content">
+      <div className="calculator-content">
         <h1>Calculador de Metas</h1>
-
-        <div className="form-group">
-          <label htmlFor="rendaMensal">Renda mensal:</label>
-          <input
-            type="text"
-            id="rendaMensal"
-            value={rendaMensal}
-            onChange={(e) => handleInputChange(e, setRendaMensal, true)}
-            placeholder="R$ 0,00" />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="despesasMensais">Despesas mensais:</label>
-          <input
-            type="text"
-            id="despesasMensais"
-            value={despesasMensais}
-            onChange={(e) => handleInputChange(e, setDespesasMensais, true)}
-            placeholder="R$ 0,00" />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="metaFinanceira">Meta financeira:</label>
-          <input
-            type="text"
-            id="metaFinanceira"
-            value={metaFinanceira}
-            onChange={(e) => handleInputChange(e, setMetaFinanceira, true)}
-            placeholder="R$ 0,00" />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="prazoMeta">Prazo de Meta(em meses):</label>
-          <input
-            type="text"
-            id="prazoMeta"
-            value={prazoMeta}
-            onChange={(e) => handleInputChange(e, setPrazoMeta)}
-            placeholder="12" />
-        </div>
-
-        <button className="calcular-btn" onClick={calcularMeta}>
-          Calcular
-        </button>
-
-        {resultado && (
-          <div className="resultado">
-            <p>{resultado}</p>
+        
+        <div className="form-section">
+          <div className="form-group">
+            <label htmlFor="monthlyIncome">Renda Mensal:</label>
+            <input
+              type="text"
+              id="monthlyIncome"
+              value={monthlyIncome}
+              onChange={(e) => handleInputChange(e, setMonthlyIncome, true)}
+              placeholder="R$ 0,00"
+            />
           </div>
-        )}
+
+          <div className="form-group">
+            <label htmlFor="monthlyExpenses">Despesas Mensais:</label>
+            <input
+              type="text"
+              id="monthlyExpenses"
+              value={monthlyExpenses}
+              onChange={(e) => handleInputChange(e, setMonthlyExpenses, true)}
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="financialGoal">Meta Financeira:</label>
+            <input
+              type="text"
+              id="financialGoal"
+              value={financialGoal}
+              onChange={(e) => handleInputChange(e, setFinancialGoal, true)}
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="goalDeadline">Prazo de Meta (em meses):</label>
+            <input
+              type="text"
+              id="goalDeadline"
+              value={goalDeadline}
+              onChange={(e) => handleInputChange(e, setGoalDeadline)}
+              placeholder="12"
+            />
+          </div>
+
+          <button className="calculate-btn" onClick={calculateGoal}>
+            Calcular
+          </button>
+        </div>
+
+        <div className="result-section">
+          {result ? (
+            <div className="result">
+              <p>{result}</p>
+            </div>
+          ) : (
+            <div className="result">
+              <p>Preencha os campos e clique em "Calcular" para ver o resultado.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
