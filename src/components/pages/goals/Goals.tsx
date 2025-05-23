@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Goals.css';
-import logoControla from '../../../assets/logo-controla.svg';
+import logoControla from "../../../assets/img/logo-group.png";
 
 function Goals() {
   const [monthlyIncome, setMonthlyIncome] = useState<string>('');
@@ -10,10 +10,9 @@ function Goals() {
   const [result, setResult] = useState<string | null>(null);
 
   const formatValue = (value: string): string => {
-    // Remove caracteres não numéricos
+    
     const onlyNumbers = value.replace(/\D/g, '');
 
-    // Converte para número e formata como moeda
     if (onlyNumbers === '') return '';
 
     const number = parseInt(onlyNumbers, 10) / 100;
@@ -31,10 +30,8 @@ function Goals() {
     const { value } = e.target;
 
     if (isMonetary) {
-      // Para campos monetários, formata como moeda
       setter(formatValue(value));
     } else {
-      // Para campos não monetários (como prazo), permite apenas números
       if (/^\d*$/.test(value) || value === '') {
         setter(value);
       }
@@ -42,22 +39,17 @@ function Goals() {
   };
 
   const parseMonetary = (value: string): number => {
-    // Se o valor estiver vazio, retorna 0
+
     if (!value || value.trim() === '') return 0;
     
-    // Remove o símbolo da moeda e espaços
     let cleanValue = value.replace(/R\$\s?/g, '');
     
-    // Substitui pontos por nada (remove separadores de milhar)
     cleanValue = cleanValue.replace(/\./g, '');
     
-    // Substitui vírgula por ponto (para decimal)
     cleanValue = cleanValue.replace(',', '.');
     
-    // Converte para número
     const result = parseFloat(cleanValue);
     
-    // Retorna 0 se não for um número válido
     return isNaN(result) ? 0 : result;
   };
 
@@ -67,7 +59,6 @@ function Goals() {
     const goal = parseMonetary(financialGoal);
     const deadline = parseInt(goalDeadline, 10);
 
-    // Validação do prazo
     if (isNaN(deadline) || deadline < 1) {
       setResult('O prazo da meta deve ser de no mínimo 1 mês.');
       return;
@@ -83,7 +74,6 @@ function Goals() {
     const timeNeeded = goal / monthlySavings;
     const requiredSavings = goal / deadline;
 
-    // Formata os valores para exibição
     const formattedMonthlySavings = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
@@ -110,11 +100,11 @@ function Goals() {
   return (
     <div className="calculator-container">
       <header className="header">
-        <img src={logoControla} alt="Controla" className="logo" />
+        <img src={logoControla} alt="Controla" className="" />
       </header>
 
       <div className="calculator-content">
-        <h1>Calculador de Metas</h1>
+        <h1>Calculador de Metas </h1>
         
         <div className="form-section">
           <div className="form-group">
