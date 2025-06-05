@@ -4,10 +4,20 @@ import image from '../../../assets/img/img-Financial.png'
 import { CalendarDays, ChartNoAxesCombined, Linkedin, Github, Instagram } from 'lucide-react';
 import woman from '../../../assets/img/img-woman.png'
 import people from '../../../assets/img/img-people.png'
+import { useNavigate } from 'react-router-dom';
 
 
 
 export function LandingPage(){
+const navigate = useNavigate();
+
+const handleGoToCalendar = () => {
+  navigate('/calendar');
+};
+
+const handleGoToGoals = () => {
+  navigate('/goals');
+};
     return(
         <div className='container-landing'>
             <Header/>
@@ -17,12 +27,12 @@ export function LandingPage(){
                     <img className='img-1' src={image} alt="" />
                     <div id='blur-1' className='blur'></div>
                     <div className='buttons'>
-                        <button className='button-landing'>
-                        <CalendarDays className='icon'/> Consultar calendário
-                        </button>
-                        <button className='button-landing'>
-                        <ChartNoAxesCombined className='icon'/> Calcular uma meta 
-                        </button>
+               <button className='button-landing' onClick={handleGoToCalendar}>
+               <CalendarDays className='icon' /> Consultar calendário
+               </button>
+               <button className='button-landing' onClick={handleGoToGoals}>
+               <ChartNoAxesCombined className='icon' /> Calcular uma meta 
+               </button>
                     </div>
                 </div>
             </section>
