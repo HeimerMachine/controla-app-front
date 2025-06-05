@@ -50,7 +50,7 @@ export function Register() {
             <h2>Crie sua conta</h2>
           </div>
           <form onSubmit={handleSubmit} className="register-form">
-            <div className="form-group">
+            <div className="form-group-register">
               <label>Como você prefere ser chamado (a)?</label>
               <input
                 type="text"
@@ -60,7 +60,7 @@ export function Register() {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group-register">
               <label>Email:</label>
               <input
                 type="email"
@@ -70,7 +70,7 @@ export function Register() {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group-register">
               <label>Senha:</label>
               <input
                 type="password"
@@ -80,7 +80,7 @@ export function Register() {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group-register">
               <label>Confirme sua senha:</label>
               <input
                 type="password"
