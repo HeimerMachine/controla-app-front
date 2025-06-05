@@ -2,74 +2,70 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
+  max-width: 70%;
+
 }
 
-.month-selector {
-  margin-top: 20px;
+.calendar-container h1{
+
+  color: #000000;
 }
+
 
 .calendar-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
 }
 
-.calendar-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 20px;
-}
 
-.arrow-left, .arrow-right {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: #f0f0f0;
-  border-radius: 50%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.arrow-left:hover, .arrow-right:hover {
-  background-color: #e0e0e0;
-}
-
-.arrow-left {
-  position: absolute;
-  left: -60px;
-}
-
-.arrow-right {
-  position: absolute;
-  right: -60px;
-}
-
-.calendar-table {
-  border-collapse: collapse;
+.react-calendar {
+  border: none;
   width: 100%;
+  background: none;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
   max-width: 1000px;
-  height: 600px;
 }
 
-.calendar-table th, .calendar-table td {
-  width: 120px;
-  height: 80px;
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.react-calendar__navigation__label {
+  font-size: 1.4rem; 
+  font-weight: bold;
+}
+
+.react-calendar__tile {
+  height: 120px; 
+  font-size: 1.2rem;
+  border: 1px solid #ddd;
   text-align: center;
   vertical-align: middle;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  font-size: 1.2rem;
+  padding: 20px 0;
 }
 
-.calendar-table td:hover {
+.react-calendar__tile:hover {
   background-color: #fafafa;
 }
 
-/* Modal */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  color: #444;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d10000;
+}
+
+
 .modal {
   position: fixed;
   top: 50%;
@@ -83,12 +79,10 @@
   z-index: 1000;
 }
 
-
-
 .modal h2 {
   text-align: left;
   font-size: 1.2rem;
-  color: #333;
+  color: #000000;
   margin-bottom: 10px;
 }
 
@@ -101,63 +95,83 @@
 
 .modal .input-group label {
   font-weight: 500;
-  color: #555;
+  color: #000000;
   margin-bottom: 5px;
   text-align: left;
+
 }
 
-.modal .input-group input {
-  width: 100%;
+.modal .input-group input,
+.modal .input-group select {
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid #000000;
+  border-radius: 10px;
   background-color: #f9f9f9;
 }
 
-.modal .input-group input:focus {
+.modal .input-group input:focus,
+.modal .input-group select:focus {
   border-color: #000000;
   outline: none;
 }
 
 
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.radio-group label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.radio-group input[type="radio"] {
-  cursor: pointer;
-  accent-color: #007bff;
-}
-
+.radio-group,
 .radio-group-categories {
   display: flex;
-  flex-direction: column; 
-  align-items: flex-start; 
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
   margin-bottom: 20px;
+
 }
 
+.radio-group label,
 .radio-group-categories label {
-  display: flex;
+    color: #000000;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;  
+  
+
 }
 
 .radio-group-categories input[type="radio"] {
+  margin-right: 16px;
+}
+
+
+.radio-group input[type="radio"],
+.radio-group-categories input[type="radio"] {
   cursor: pointer;
   accent-color: #007bff;
+}
+
+
+.radio-group-categories input[value="ALIMENTACAO"] {
+  accent-color: #FF0004;
+}
+
+.radio-group-categories input[value="LAZER"] {
+  accent-color: #65D067;
+}
+
+.radio-group-categories input[value="SAUDE"] {
+  accent-color: #009DFF;
+}
+
+.radio-group-categories input[value="ROUPAS_E_ACESSORIOS"] {
+  accent-color: #FF18AE;
+}
+
+.radio-group-categories input[value="DIVIDAS"] {
+  accent-color: #FFA600;
+}
+
+.radio-group-categories input[value="CONTAS"] {
+  accent-color: #D900FF;
+}
+
+.radio-group-categories input[value="OUTROS_TIPOS_DE_GASTOS"] {
+  accent-color: #795548;
 }
 
 
@@ -194,9 +208,10 @@
   background-color: #c82333;
 }
 
+
 .adicionar {
-  display: flex;  
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
@@ -206,31 +221,161 @@
   color: #333;
 }
 
-.radio-group-categories input[value="Alimentação"] {
-  accent-color: #FF0004; 
+.event-list {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1.2;
+  max-height: 100px;
+  overflow-y: auto;
 }
 
-.radio-group-categories input[value="Lazer"] {
-  accent-color: #65D067; 
+.event-list .receita {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin-bottom: 2px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.radio-group-categories input[value="Saúde"] {
-  accent-color: #009DFF;
+.event-list .despesa {
+  background-color: #f44336;
+  color: white;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin-bottom: 2px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.radio-group-categories input[value="Roupas e acessórios"] {
-  accent-color: #FF18AE; 
+.event-list li {
+  cursor: pointer;
 }
 
-.radio-group-categories input[value="Dívidas"] {
-  accent-color: #FFA600;
+
+.daily-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.radio-group-categories input[value="Contas"] {
-  accent-color: #D900FF;
+.daily-item {
+  font-size: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.radio-group-categories input[value="Outros tipos de gastos"] {
-  accent-color: #795548; 
+.daily-item .tipo {
+  font-weight: bold;
+  margin-right: 5px;
+  color: #333;
+}
 
+.daily-item .descricao {
+  color: #222;
+}
+
+.daily-item .quantidade {
+  margin-left: 5px;
+  color: #555;
+}
+
+.daily-item .categoria {
+  margin-left: 5px;
+  color: #777;
+  font-style: italic;
+}
+
+.summary-panel {
+  width: 500px;
+  height: 700px;
+  align-self: center; 
+  padding: 20px;
+  border-radius: 15px;
+  margin-left: -10px; 
+  flex-direction: column;
+  gap: 40px; 
+  
+}
+
+.finance-summary,
+.controle-summary {
+  background-color: #fff9c4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+ 
+
+  
+}
+.controle-summary {
+  min-height: 200px;
+  font-size: 1.2rem;
+ 
+}
+
+.finance-summary h3,
+.controle-summary h3 {
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 27px;
+
+}
+.controle-summary p {
+  margin-bottom: 15px;
+  text-align: left;
+  color: #000000;
+}
+.finance-summary ul {
+  list-style: none;
+  padding-left: 0;
+    margin-top: 16px;
+
+}
+
+.finance-summary li {
+  margin-bottom: 6px;
+  font-size: 1.2rem;
+    color: #000000;
+}
+
+.finance-summary {
+  min-height: 400px;
+  margin-bottom: 40px;
+ 
+}
+
+.finance-summary ul li {
+  margin-bottom: 15px;
+  text-align: left;
+
+}
+
+textarea {
+  border: 1px solid #000000;  
+  border-radius: 10px;       
+  padding: 10px;
+  background-color: #f9f9f9;
+  resize: none;
+  width: 100%;
+}
+
+
+.modal .input-group input,
+.modal .input-group textarea {
+
+  color: #161616; 
+  font-family: inherit;
+  font-size: 1rem;     
 }

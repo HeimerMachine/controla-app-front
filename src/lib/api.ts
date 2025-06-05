@@ -19,6 +19,44 @@ api.interceptors.request.use(
     }
 )
 
+interface IncomePayload {
+  amount: number;
+  description: string;
+  date: string;
+}
+
+interface ExpensePayload extends IncomePayload {
+  category: string;
+}
+
+export const createIncome = async (data: IncomePayload) => {
+  try {
+    const response = await api.post("/finance/create/income", data);
+    return response.data;
+  } catch (error) {
+    checkError(error, console.error, console.error);
+  }
+};
+
+export const createExpense = async (data: ExpensePayload) => {
+  try {
+    const response = await api.post("/finance/create/expense", data);
+    return response.data;
+  } catch (error) {
+    checkError(error, console.error, console.error);
+  }
+};
+
+export const getAllTransactions = async () => {
+  try {
+    const response = await api.get("/finance/all");
+    return response.data;
+  } catch (error) {
+    checkError(error, console.error, console.error);
+  }
+};
+
+
 type CheckErrorCallback = (message: string) => void;
 
 const checkError = (
