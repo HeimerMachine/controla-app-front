@@ -1,5 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import "./Register.css";
+import { api } from "../../../lib/api";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 interface FormState {
   name: string;
@@ -9,6 +12,9 @@ interface FormState {
 }
 
 export function Register() {
+
+  const navigate = useNavigate()
+
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -20,8 +26,18 @@ export function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try{
+      const response = await api.post(`users/register/`, form)
+      toast.success("Cadastro efetuado com sucesso!")
+      navigate("/sign-in")
+      return response.data
+
+    }
+    catch (error){
+      toast.error("Houve um problema ao enviar os seus dados!")
+    }
     console.log(form);
   };
 
